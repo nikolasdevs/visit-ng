@@ -11,7 +11,16 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        primary: "#17481A",
+        secondary: "var(--secondary)",
+        onPrimary: "#EAF8EB",
+        onSecondary: "var(--secondary-foreground)",
+        onHoverPrimary: "#2D7331",
+        card: "#999",
       },
+    },
+    fontFamily: {
+      display: ["Montserrat"],
     },
   },
   plugins: [],
