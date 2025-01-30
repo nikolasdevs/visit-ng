@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { createRecord } from "./ModelDataModel";
+import { createRecord } from "../../utility/adminApi";
+import { useRouter } from "next/navigation";
 
-const AdminMgt = () => {
+const CreateAdmin = () => {
   const router = useRouter();
   const [form, setForm] = useState({
     username: "",
@@ -32,12 +32,13 @@ const AdminMgt = () => {
     }
     try {
       // Use createRecord to create an admin
-      await createRecord("admin", form);
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 3000);
+      await createRecord("admin", form, router);
     } catch (error) {
-      console.error("Error creating admin:", error);
+      toast.error(
+        `Error creating admin: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
     }
   };
 
@@ -100,4 +101,4 @@ const AdminMgt = () => {
   );
 };
 
-export default AdminMgt;
+export default CreateAdmin;

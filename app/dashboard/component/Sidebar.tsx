@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { PiDotsThreeVertical } from "react-icons/pi";
-import { fetchAllRecords } from "./ModelDataModel";
+import { fetchAllRecords } from "../../utility/adminApi.ts";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Sidebar = () => {
   const [activeLink, setActiveLink] = useState<string>("");
@@ -44,7 +46,7 @@ const Sidebar = () => {
         throw new Error("Unexpected response format");
       }
     } catch (error) {
-      console.error(error instanceof Error ? error.message : String(error));
+      toast.error(error instanceof Error ? error.message : String(error));
     } finally {
       setLoading(false);
     }
@@ -52,6 +54,7 @@ const Sidebar = () => {
 
   return (
     <div className="p-16">
+      <ToastContainer />
       <div className="flex items-start gap-20">
         {/* Sidebar Model Selector */}
         <div className="mb-4 border border-blue-300 w-96 p-4 h-[calc(100vh-16rem)]">

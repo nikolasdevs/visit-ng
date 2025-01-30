@@ -1,9 +1,9 @@
-import AdminMgt from "@/dashboard/component/CreateNew";
+import CreateAdmin from "@/dashboard/component/CreateNew";
 
 const page = () => {
   return (
     <div>
-      <AdminMgt />
+      <CreateAdmin />
     </div>
   );
 };

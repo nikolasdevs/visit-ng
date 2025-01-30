@@ -1,21 +1,23 @@
 "use client";
 
-import axios from "axios";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  deleteRecord,
+  fetchRecordByField,
+  fetchRecordById,
+  updateRecord,
+} from "../../../utility/adminApi";
 
 interface Admin {
   id: string;
   username: string;
   email: string;
-  password: string;
   role: string;
 }
-
-const API_URL = process.env.NEXT_PUBLIC_ADMIN_API;
-if (!API_URL) throw new Error("API URL is not defined");
 
 const AdminPage: React.FC = () => {
   const router = useRouter();
@@ -27,7 +29,7 @@ const AdminPage: React.FC = () => {
   const [form, setForm] = useState({
     username: "",
     email: "",
-    password: "",
+
     role: "USER",
   });
   const [message, setMessage] = useState("");
@@ -36,31 +38,39 @@ const AdminPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const slugFromUrl = new URL(window.location.href).pathname.split("/").pop();
-    if (slugFromUrl) {
-      setId(slugFromUrl);
+    const idFromUrl = window.location.pathname.split("/").pop();
+    if (idFromUrl) {
+      setId(idFromUrl);
     } else {
-      setError("Slug not found in the URL");
+      setError("Admin ID not found in the URL.");
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     if (!id) return;
+
     const fetchAdmin = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}/${id}`);
-        const adminData = response.data.data;
+        const response = await fetchRecordById("admin", id);
+        const adminData = response?.data;
+
+        if (!adminData) {
+          throw new Error("No admin data found.");
+        }
+
         setAdmin(adminData);
         setForm({
           username: adminData.username,
           email: adminData.email,
-          password: "", // Leave empty for security
+          // password: "", // Keep empty for security
           role: adminData.role,
         });
-      } catch {
-        setError("Error fetching admin data:");
-        setMessage("Failed to fetch admin data.");
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Error fetching admin data."
+        );
       } finally {
         setLoading(false);
       }
@@ -68,6 +78,14 @@ const AdminPage: React.FC = () => {
 
     fetchAdmin();
   }, [id]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-600 text-xl font-bold">{error}</p>
+      </div>
+    );
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -78,25 +96,46 @@ const AdminPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!form.username || !form.email || !form.role) {
+      toast.error("Validation Error: All fields are required.");
+      return;
+    }
+
     try {
-      await axios.put(`${API_URL}/${id}`, form); // Update admin
-      setMessage("Admin updated successfully");
-      setTimeout(() => {
-        router.push("/dashboard/");
-      }, 2000);
+      const [usernameCheck, emailCheck] = await Promise.all([
+        fetchRecordByField("admin", "username", form.username),
+        fetchRecordByField("admin", "email", form.email),
+      ]);
+
+      if (usernameCheck && usernameCheck.id !== id) {
+        toast.error("Username already exists.");
+        return;
+      }
+
+      if (emailCheck && emailCheck.id !== id) {
+        toast.error("Email already exists.");
+        return;
+      }
+
+      if (id) {
+        await updateRecord("admin", id, form, router);
+      } else {
+        toast.error("Admin ID is missing.");
+      }
     } catch (error) {
       console.error("Error updating admin:", error);
-      setMessage("Failed to update admin.");
+      toast.error("Failed to update admin. Please try again.");
     }
   };
-
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      if (id) {
+        await deleteRecord("admin", id, router);
+      } else {
+        toast.error("Admin ID is missing.");
+      }
       setMessage("Admin deleted successfully");
-      setTimeout(() => {
-        router.push("/dashboard/");
-      }, 2000);
     } catch (error) {
       console.error("Error deleting admin:", error);
       setMessage("Failed to delete admin.");
@@ -115,6 +154,7 @@ const AdminPage: React.FC = () => {
 
   return (
     <div className="p-4">
+      <ToastContainer />
       {mode === "edit" ? (
         <>
           <h1 className="text-2xl font-bold mb-4">Edit Admin</h1>
@@ -139,16 +179,7 @@ const AdminPage: React.FC = () => {
                 className="border rounded p-2 w-full mb-2"
               />
             </div>
-            <div>
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleInputChange}
-                className="border rounded p-2 w-full mb-2"
-              />
-            </div>
+            {/* Password field removed */}
             <div>
               <label>Role</label>
               <select
@@ -157,6 +188,7 @@ const AdminPage: React.FC = () => {
                 onChange={handleInputChange}
                 className="border rounded p-2 w-full mb-2"
               >
+                <option>Select</option>
                 <option value="USER">User</option>
                 <option value="SUPERADMIN">Super Admin</option>
               </select>
@@ -180,7 +212,6 @@ const AdminPage: React.FC = () => {
           >
             Delete Admin
           </button>
-          {message && <div className="mt-4 text-green-500">{message}</div>}
         </>
       ) : (
         <>
