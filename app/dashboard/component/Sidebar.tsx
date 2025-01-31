@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { PiDotsThreeVertical } from "react-icons/pi";
-import { fetchAllRecords } from "../../utility/adminApi.ts";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchAllRecords } from "../../utility/adminApi";
 
 const Sidebar = () => {
   const [activeLink, setActiveLink] = useState<string>("");
@@ -155,7 +155,7 @@ const Sidebar = () => {
                             <ul className="text-black">
                               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                 <Link
-                                  href={`dashboard/admin/${item.id}?mode=edit`}
+                                  href={`dashboard/${model}/${item.id}?mode=edit`}
                                 >
                                   Edit
                                 </Link>
@@ -167,7 +167,7 @@ const Sidebar = () => {
                               </li>
                               <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
                                 <Link
-                                  href={`dashboard/admin/${item.id}?mode=delete`}
+                                  href={`dashboard/${model}/${item.id}?mode=delete`}
                                 >
                                   Delete
                                 </Link>
