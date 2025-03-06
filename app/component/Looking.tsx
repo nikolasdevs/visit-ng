@@ -1,18 +1,15 @@
-import React from "react";
-
 export const Looking = () => {
   return (
-    <div className="w-full mt-[75rem]">
-      <div className="flex justify-between items-center container">
-        <h1 className="text-6xl leading-snug font-normal ">
-          Looking for where to visit in{" "}
-          <span className="font-display font-bold text-onPrimary">
-            Nigeria?
-          </span>
-        </h1>
-        <div className="w-[1px] h-32 bg-onPrimary mr-32"></div>
-        <div className="w-2/4">
-          <p className=" text-4xl leading-snug">
+    <div className="w-full md:mt-48 mt-32 ">
+      <div className="flex flex-col container">
+        {" "}
+        <div className="w-full flex flex-col md:gap-8 gap-4 ">
+          <p className="text-xl leading-snug font-semibold text-accent">
+            Looking for where to visit in{" "}
+            <span className="font-display ">Nigeria?</span>
+          </p>
+
+          <p className=" lg:text-3xl md:text-2xl leading-snug lg:text-start">
             Discover the best places to visit in Nigeria across different
             regions. Each region has unique experience to explore.
           </p>

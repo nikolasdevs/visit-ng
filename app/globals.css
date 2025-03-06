@@ -7,9 +7,9 @@
   --foreground: #171717;
 } */
 
-@layer base {
+/* @layer base {
   :root {
-    --background: 210 13% 12%;
+    --background: 203 86% 14%;
     --foreground: 180 12% 92%;
     --card: 0 0% 60%;
     --card-foreground: 224 71.4% 4.1%;
@@ -21,12 +21,13 @@
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
   }
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0d0f11;
-    --foreground: #e8eded;
+    --background: #021520;
+    --foreground: #e9f2f7;
+    --accent: #59da8a;
   }
 }
 
@@ -38,19 +39,19 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 1rem;
 }
 
 .container {
-  @apply max-w-screen-xl mx-auto px-40;
+  @apply max-w-7xl mx-auto px-8 md:px-16 2xl:px-0;
 }
 
 h1 {
-  @apply text-6xl leading-snug font-bold;
+  @apply xl:text-6xl lg:text-4xl md:text-3xl text-xl leading-snug font-bold;
 }
 h2 {
-  @apply text-4xl font-bold;
+  @apply xl:text-4xl lg:text-2xl md:text-xl font-bold;
 }
 
 .primary-btn {
@@ -66,15 +67,18 @@ h2 {
 }
 
 .card {
-  @apply w-[300px] h-[400px] flex flex-col gap-5 border border-card;
+  @apply md:w-[300px] md:h-[500px] flex flex-col md:gap-5 border border-foreground;
 }
 
 .card-title {
-  @apply font-bold text-3xl;
+  @apply font-bold md:text-2xl text-xl;
+}
+.card-description {
+  @apply md:text-xl;
 }
 
 .card-text {
-  @apply p-6 text-onSecondary flex flex-col items-start gap-4;
+  @apply p-6 text-base flex flex-col items-start gap-4;
 }
 
 .form-group {
@@ -83,4 +87,31 @@ h2 {
 
 input {
   @apply border border-card w-full bg-transparent py-4 px-4 outline-none;
+}
+
+.blob {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: #59da8a;
+  width: 50vmax;
+  z-index: -1;
+  animation: move 10s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes move {
+  0% {
+    transform: scale(1) translate(10px, -80px);
+  }
+  38% {
+    transform: scale(0.8, 1) translate(80vw, 30vh) rotate(160deg);
+  }
+  40% {
+    transform: scale(0.8, 1) translate(80vw, 30vh) rotate(160deg);
+  }
+
+  100% {
+    transform: scale(1) translate(10px, -80px);
+  }
 }

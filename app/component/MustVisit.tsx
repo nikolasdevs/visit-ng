@@ -1,17 +1,16 @@
 "use client";
-import Image from "next/image";
-import React from "react";
-import { topTen } from "../../components/data/topTenData";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
+import { topTen } from "../../components/data/topTenData";
 
 export const MustVisit = () => {
   return (
-    <div className="mt-32">
+    <div className="mt-12">
       <div className="container">
         <h1 className="">The 10 Must Visit Places in Nigeria</h1>
 
-        <div className="flex items-center gap-4 h-auto my-16">
+        <div className="flex  items-center justify-center gap-4 h-auto my-12 flex-wrap">
           {" "}
           {topTen.map((card) => (
             <div className="card " key={card.id}>
@@ -41,7 +40,7 @@ export const MustVisit = () => {
               </Link>
               <div className="card-text">
                 <h2 className="card-title">{card.title}</h2>
-                <p className="truncates text-xl">{card.description}</p>
+                <p className="truncates card-description">{card.description}</p>
               </div>
             </div>
           ))}

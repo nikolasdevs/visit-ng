@@ -84,7 +84,7 @@ const Sidebar = () => {
                 }
                 focus:outline-none`}
                 >
-                  {modelItem.charAt(0).toUpperCase() + modelItem.slice(1)}
+                  {modelItem.charAt(0).toLowerCase() + modelItem.slice(1)}
                 </li>
               </div>
             </ul>
@@ -138,7 +138,11 @@ const Sidebar = () => {
                               : undefined
                           } // Tooltip for truncated values
                         >
-                          {value as string | number | boolean | null}
+                          {typeof value === "object" && value !== null
+                            ? (value as { name?: string }).name ||
+                              (value as { state_name?: string }).state_name ||
+                              "N/A"
+                            : String(value)}
                         </td>
                       ))}
                       {/* Dropdown Actions */}

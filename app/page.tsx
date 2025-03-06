@@ -1,24 +1,23 @@
-import React from "react";
+import { Accommodation } from "./component/Accommodation";
+import { Events } from "./component/Events";
+import EventsSlides from "./component/EventsSlides";
+import AccommodationSlides from "./component/AccommodationSlides";
 import Hero from "./component/Hero";
 import { Looking } from "./component/Looking";
-import { Header } from "./component/Header";
 import { MustVisit } from "./component/MustVisit";
 import { TravelAdvice } from "./component/TravelAdvice";
-import { Accommodation } from "./component/Accommodation";
-import { SelectedAcc } from "./component/SelectedAcc";
-import ThingsToDo from "./component/ThingsToDo";
 
 const page = () => {
   return (
-    <div className="bg-background text-foreground">
-      <Header />
+    <div className="">
       <Hero />
       <Looking />
       <MustVisit />
-      <TravelAdvice />
-      <ThingsToDo slides={[1, 2, 3]} />
       <Accommodation />
-      <SelectedAcc />
+      <AccommodationSlides slides={[1, 2, 3, 4, 5]} />
+      <TravelAdvice />
+      <Events />
+      <EventsSlides slides={[1, 2, 3, 4, 5]} />
     </div>
   );
 };

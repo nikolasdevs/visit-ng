@@ -1,89 +1,41 @@
-"use client";
+import React from "react";
 
-import React, { useEffect, useState } from "react";
-import "./../../components/embla-hero/embla_hero.css";
-import "./../../components/embla-hero/base_hero.css";
-import axios from "axios";
-import EmblaCarousel from "../../components/embla-hero/EmblaCarousel";
-
-interface Tour {
-  id: number;
-  imageUrls: string[]; // Array of image URLs for the tour
-}
-
-const Hero = () => {
-  const [slides, setSlides] = useState<string[]>([]); // For carousel images
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-  const [error, setError] = useState<string | null>(null); // Error state
-
-  // Fetch data from API
-  useEffect(() => {
-    const fetchTours = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_TOURS_API; // API URL from .env
-        if (!apiUrl) throw new Error("API URL is not defined");
-        const response = await axios.get(apiUrl);
-
-        const tours = Array.isArray(response.data.data)
-          ? response.data.data
-          : [];
-        console.log("Fetched Tours:", tours); // Debug the response
-
-        const imageUrls: string[] = tours
-          .filter((tour: Tour) => Array.isArray(tour.imageUrls)) // Ensure `imageUrls` exists and is an array
-          .flatMap((tour: Tour) => tour.imageUrls);
-        setSlides(imageUrls);
-        console.log(imageUrls);
-        // Extract image URLs from tours
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setError(
-          error instanceof Error ? error.message : "Failed to fetch data"
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchTours();
-  }, []);
-
-  // Loading state
-  if (loading) {
-    return (
-      <div className="w-full h-full flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className="w-full h-full flex justify-center items-center">
-        <p className="text-red-500">Error: {error}</p>
-      </div>
-    );
-  }
-
+const Hero: React.FC = ({}) => {
   return (
-    <div className="w-full h-full max-h-48">
-      <div className="relative flex items-center justify-center w-full px-2 sm:px-6 lg:px-8 h-[70rem]">
-        <div className="absolute inset-0 w-full h-full">
-          <EmblaCarousel slides={slides} />
-          <div className=" absolute inset-0 bg-black/30 flex flex-col items-center justify-center w-full h-full"></div>
+    <div className=" flex items-center justify-center w-full lg:px-8 top-24 relative z-10 ">
+      <div className=" z-50 relative w-full bg-green-700 overflow-hidden">
+        {" "}
+        <div className=" w-full ">
+          <video
+            src="videos/VisitState.mp4"
+            autoPlay
+            loop
+            muted
+            className="w-full"
+            controls
+          />
         </div>
-        <div className=" flex flex-col items-start justify-between z-50 max-w-screen-xl w-full px-40 gap-16">
-          <div className=" w-1/2 flex flex-col gap-8 items-start sm:text-start ">
-            <p className="2xl:text-[10rem] xl:text-[8rem] lg:text-[6rem] text-[4rem] 2xl:leading-[9rem] xl:leading-[7rem] lg:leading-[5rem] font-black font-display z-10 leading-[4rem] text-foreground">
-              DISCOVER NIGERIA
-            </p>
-            <p className="text-4xl font-semibold z-10 text-foreground leading-snug">
-              Get ready to explore Lagos State. <br /> Discover the best sights,
-              events, entertainments, and culture with just a few clicks...
-            </p>
+        <div className="lg:container w-full md:w-3/4 lg:w-1/2 flex flex-col lg:gap-8 gap-4 items-start  absolute top-1/2 -translate-y-1/2 lg:left-48 md:left-16   left-8 ">
+          <div className="blob">
+            <svg
+              xmlnsXlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 310 350"
+            >
+              <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z" />
+            </svg>
           </div>
-         
+          <p className="2xl:text-[10rem] xl:text-[8rem] lg:text-[6rem] md:text-[3rem] text-[1.5rem] 2xl:leading-[9rem] xl:leading-[7rem] lg:leading-[5rem] md:leading-[4rem] leading-[2rem]  font-black font-display z-10  w-1/2 md:w-full ">
+            DISCOVER <span className="text-accent">NIGERIA</span>
+          </p>
+          <p
+            className="md:text-3xl font-semibold z-10 text-foreground leading-snug w-3/4
+           md:w-full"
+          >
+            Get ready to explore Lagos State. <br /> Discover the best sights,
+            events, entertainments, and culture with just a few clicks...
+          </p>
         </div>
       </div>
     </div>

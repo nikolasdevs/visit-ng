@@ -1,9 +1,9 @@
-import AdminById from "./CatById";
+import CategoryPage from "./CatById";
 
 const page = () => {
   return (
     <div>
-      <AdminById />
+      <CategoryPage />
     </div>
   );
 };
