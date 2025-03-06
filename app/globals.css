@@ -53,6 +53,9 @@ h1 {
 h2 {
   @apply xl:text-4xl lg:text-2xl md:text-xl font-bold;
 }
+h3 {
+  @apply xl:text-xl text-lg font-bold;
+}
 
 .primary-btn {
   @apply bg-primary text-onPrimary px-12 py-4 text-base font-bold tracking-wider;
