@@ -1,4 +1,4 @@
-import CreateAdmin from "@/dashboard/component/CreateNew";
+import CreateAdmin from "../../component/CreateNew";
 
 const page = () => {
   return (

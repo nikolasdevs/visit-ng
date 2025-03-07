@@ -1,10 +1,9 @@
-import Img1 from "@/public/nature-5.jpg";
-import Img2 from "@/public/nature-10.jpg";
+import Img7 from "@/public/Img3.jpg";
 import Img3 from "@/public/Img4.jpg";
 import Img4 from "@/public/nature-1.jpg";
+import Img2 from "@/public/nature-10.jpg";
 import Img5 from "@/public/nature-2.jpg";
-import Img6 from "@/public/nature-5.jpg";
-import Img7 from "@/public/Img3.jpg";
+import { default as Img1, default as Img6 } from "@/public/nature-5.jpg";
 import Img8 from "@/public/nature-8.jpg";
 import { StaticImageData } from "next/image";
 
@@ -14,18 +13,6 @@ type Slides = {
   title: string;
   date: string;
   category: string;
-};
-
-const options = {
-  // Enable or disable loop mode
-  loop: false,
-  // Set the initial slide index
-  startIndex: 0,
-  // Set the slide width
-  slideWidth: 100,
-  // Set the slide gap
-  slideGap: 10,
-  // Add more options as needed
 };
 
 export const latestEvents: Slides[] = [

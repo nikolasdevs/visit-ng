@@ -1,4 +1,4 @@
-import CreateCategory from "@/dashboard/component/CreateCategory";
+import CreateCategory from "../../component/CreateCategory";
 
 const page = () => {
   return (

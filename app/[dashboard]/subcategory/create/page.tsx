@@ -1,4 +1,4 @@
-import CreateSubcategory from "@/dashboard/component/CreateSubcategory";
+import CreateSubcategory from "../../component/CreateSubcategory";
 
 const page = () => {
   return (

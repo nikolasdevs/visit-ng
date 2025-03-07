@@ -1,9 +1,9 @@
-
 import { useState, useEffect } from "react";
 import axios from "axios";
 
 interface UseFetchDataProps<T> {
   apiUrl: string; // API URL to fetch data from
+  initialData?: T | null; // Optional initial data of type T
 }
 
 interface FetchState<T> {
