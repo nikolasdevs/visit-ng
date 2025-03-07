@@ -252,7 +252,7 @@ export function Header() {
       {isMenuOpen && (
         <nav className="lg:hidden bg-primary-foreground/75 absolute inset-0 top-16 h-screen">
           <div className="  flex h-screen fixed inset-0 justify-end z-20 bg-neutral-900/50">
-            <div className=" flex flex-col space-y-4 p-6 items-end pt-24 bg-background backdrop-blur-md shadow-md w-1/2 h-full">
+            <div className=" flex flex-col space-y-4 p-6 items-end pt-24 bg-background backdrop-blur-md shadow-md sm:w-1/2 w-full h-full">
               {subMenuOpen === null ? (
                 <>
                   <ul className="w-full flex flex-col gap-3">
