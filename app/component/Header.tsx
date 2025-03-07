@@ -52,12 +52,12 @@ export function Header() {
   return (
     <>
       <nav className="w-full   top-0 left-0 lg:right-0 z-[10000000] fixed bg-transparent transition-all duration-300 supports-[backdrop-filter]:backdrop-blur-sm  scroll:bg-white/30 ">
-        <div className="flex  xl:px-16 md:px-8 relative py-6 mx-auto items-center justify-between ">
+        <div className="flex  xl:px-16 px-8 relative py-6 mx-auto items-center justify-between ">
           <Link href="/" className="flex items-center   z-[10000]">
             <Image src={logo} alt="Company Logo" width={48} height={48} />
           </Link>
 
-          <div className="lg:hidden bg-primary-foreground flex w-full justify-end bg-green-900">
+          <div className="lg:hidden bg-primary-foreground flex w-full justify-end ">
             <Button
               onClick={toggleMenu}
               className="w-fit z-[30] bg-transparent text-foreground hover:bg-transparent hover:text-"
