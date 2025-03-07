@@ -12,7 +12,6 @@ const Hero: React.FC = ({}) => {
             loop
             muted
             className="w-full"
-            controls
           />
         </div>
         <div className="lg:container w-full md:w-3/4 lg:w-1/2 flex flex-col lg:gap-8 gap-4 items-start  absolute top-1/2 -translate-y-1/2 lg:left-48 md:left-16   left-8 ">
